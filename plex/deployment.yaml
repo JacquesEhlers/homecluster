@@ -1,0 +1,108 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: plex
+  namespace: jmedia
+  labels:
+    app: plex
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: plex
+  template:
+    metadata:
+      labels:
+        app: plex
+    spec:
+      nodeSelector:
+        role2: plex
+      # Run Plex with the same user/group IDs as your docker-compose for proper file ownership
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+        - name: plex
+          image: lscr.io/linuxserver/plex:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: "Europe/Amsterdam"
+            - name: VERSION
+              value: "docker"
+            - name: PLEX_CLAIM
+              value: "claim-Qsfd_gbJHxEv2Nz2dGdY"
+          ports:
+            # Web / API
+            - containerPort: 32400
+              name: web
+              protocol: TCP
+            # Optional extras (DLNA/Discovery/Remote)
+            - containerPort: 32469
+              name: dlna-tcp
+              protocol: TCP
+            - containerPort: 3005
+              name: companion
+              protocol: TCP
+            - containerPort: 8324
+              name: rokusvc
+              protocol: TCP
+            - containerPort: 1900
+              name: dlna-udp-1900
+              protocol: UDP
+            - containerPort: 32469
+              name: dlna-udp-32469
+              protocol: UDP
+            - containerPort: 32410
+              name: gdm-32410
+              protocol: UDP
+            - containerPort: 32412
+              name: gdm-32412
+              protocol: UDP
+            - containerPort: 32413
+              name: gdm-32413
+              protocol: UDP
+            - containerPort: 32414
+              name: gdm-32414
+              protocol: UDP
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: series
+              mountPath: /tv
+            - name: movies
+              mountPath: /movies
+          readinessProbe:
+            httpGet:
+              path: /web
+              port: 32400
+            initialDelaySeconds: 20
+            timeoutSeconds: 5
+            periodSeconds: 10
+            failureThreshold: 60
+          livenessProbe:
+            tcpSocket:
+              port: 32400
+            initialDelaySeconds: 300
+            periodSeconds: 20
+      volumes:
+        # HostPath storage as requested (ensure these exist on the selected node)
+        - name: config
+          hostPath:
+            path: /media/plex/config
+            type: DirectoryOrCreate
+        - name: series
+          hostPath:
+            path: /media/plex/series
+            type: Directory
+        - name: movies
+          hostPath:
+            path: /media/plex/movies
+            type: Directory
+

@@ -1,0 +1,83 @@
+---
+# Web UI / API only (for Ingress or internal access)
+apiVersion: v1
+kind: Service
+metadata:
+  name: plex-web
+  namespace: jmedia
+  labels:
+    app: plex
+  annotations:    
+    metallb.io/loadBalancerIPs: "192.168.2.207"
+    metallb.io/address-pool: "internal-pool"
+spec:
+  type: LoadBalancer
+  selector:
+    app: plex
+  ports:
+    - name: web
+      port: 80
+      targetPort: 32400
+      protocol: TCP
+
+---
+# Discovery/DLNA/Remote control — expose externally
+# Use LoadBalancer with MetalLB (similar to your qBittorrent setup)
+apiVersion: v1
+kind: Service
+metadata:
+  name: plex-discovery
+  namespace: jmedia
+  labels:
+    app: plex
+  annotations:    
+    metallb.io/loadBalancerIPs: "192.168.2.206"
+    metallb.io/address-pool: "internal-pool"
+spec:
+  type: LoadBalancer
+  selector:
+    app: plex
+  ports:
+    # TCP
+    - name: tcp-32400
+      port: 32400
+      targetPort: 32400
+      protocol: TCP
+    - name: tcp-32469
+      port: 32469
+      targetPort: 32469
+      protocol: TCP
+    - name: tcp-3005
+      port: 3005
+      targetPort: 3005
+      protocol: TCP
+    - name: tcp-8324
+      port: 8324
+      targetPort: 8324
+      protocol: TCP
+    # UDP (DLNA / GDM discovery)
+    - name: udp-1900
+      port: 1900
+      targetPort: 1900
+      protocol: UDP
+    - name: udp-32469
+      port: 32469
+      targetPort: 32469
+      protocol: UDP
+    - name: udp-32410
+      port: 32410
+      targetPort: 32410
+      protocol: UDP
+    - name: udp-32412
+      port: 32412
+      targetPort: 32412
+      protocol: UDP
+    - name: udp-32413
+      port: 32413
+      targetPort: 32413
+      protocol: UDP
+    - name: udp-32414
+      port: 32414
+      targetPort: 32414
+      protocol: UDP
+

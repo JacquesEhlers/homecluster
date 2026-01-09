@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qbittorrent
+  namespace: jmedia
+  labels:
+    app: qbittorrent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: qbittorrent
+  template:
+    metadata:
+      labels:
+        app: qbittorrent
+    spec:
+      nodeSelector:
+        role: qbittorrent
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+        - name: qbittorrent
+          image: lscr.io/linuxserver/qbittorrent:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            # CET via Olson database name for the Netherlands
+            - name: TZ
+              value: "Europe/Amsterdam"
+            - name: WEBUI_PORT
+              value: "8080"
+            - name: TORRENTING_PORT
+              value: "6881"
+          ports:
+            - name: webui
+              containerPort: 8080
+              protocol: TCP
+            - name: torrent-tcp
+              containerPort: 6881
+              protocol: TCP
+            - name: torrent-udp
+              containerPort: 6881
+              protocol: UDP
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: scripts
+              mountPath: /scripts
+            - name: downloads
+              mountPath: /downloads
+            - name: plex-movies
+              mountPath: plex-movies
+            - name: plex-series
+              mountPath: /plex-serries
+      volumes:
+        - name: config
+          hostPath:
+            path: /media/qbittorrent/appdata
+            type: DirectoryOrCreate
+        - name: scripts
+          hostPath:
+            path: /media/qbittorrent/scripts
+            type: DirectoryOrCreate
+        - name: downloads
+          hostPath:
+            path: /media/qbittorrent/downloads
+            type: DirectoryOrCreate
+        - name: plex-series
+          hostPath:
+            path: /media/plex/series
+            type: Directory
+        - name: plex-movies
+          hostPath:
+            path: /media/plex/movies
+            type: Directory
+# password: burso6-qarkys-taQqis

@@ -1,0 +1,63 @@
+
+# qbittorrent Web UI — only for HTTP via Ingress
+apiVersion: v1
+kind: Service
+metadata:
+  name: qbittorrent-webui
+  namespace: jmedia
+  labels:
+    app: qbittorrent
+spec:
+  type: ClusterIP
+  selector:
+    app: qbittorrent
+  ports:
+    - name: webui
+      port: 80         # Exposed to cluster; Ingress will route external HTTP(S) to this
+      targetPort: 8080 # qBittorrent Web UI container port
+      protocol: TCP
+
+---
+# qbittorrent Torrent Ports — external exposure for peer connectivity
+apiVersion: v1
+kind: Service
+metadata:
+  name: qbittorrent-torrent
+  namespace: jmedia
+  labels:
+    app: qbittorrent
+  annotations:    
+    metallb.io/loadBalancerIPs: "192.168.2.205"
+    metallb.io/address-pool: "internal-pool"
+spec:
+  type: LoadBalancer        # Requires MetalLB (or equivalent) on bare metal
+  selector:
+    app: qbittorrent
+  ports:
+    - name: torrent-tcp
+      port: 6881            # External port to expose
+      targetPort: 6881      # Container port set in qBittorrent
+      protocol: TCP
+    - name: torrent-udp
+      port: 6881
+      targetPort: 6881
+      protocol: UDP
+
+  # --- Port Forwarding / Firewall Notes ---
+  # After MetalLB assigns an external IP to this Service (example: 203.0.113.50):
+  # 1) Edge Router/NAT:
+  #    - Forward WAN TCP 6881 -> 203.0.113.50:6881
+  #    - Forward WAN UDP 6881 -> 203.0.113.50:6881
+  #
+  # 2) If your cluster has node/host firewalls, allow:
+  #    - TCP dport 6881 to the LB IP
+  #    - UDP dport 6881 to the LB IP
+  #
+  # 3) In qBittorrent (Preferences → Connection):
+  #    - Set a fixed incoming port: 6881
+  #    - Ensure both TCP and UDP are enabled
+  #    - Disable UPnP/NAT-PMP if relying on explicit forwarding above
+  #
+  # 4) Verification:
+  #    - From outside: `nc -vz 203.0.113.50 6881` (TCP check)
+  #    - In qBittorrent status bar, confirm "Port is open" / incoming connections.

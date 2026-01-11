@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: landing
+  name: landing
+  namespace: jmedia
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: landing
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: landing
+    spec:
+      imagePullSecrets:
+        - name: ghcr-pull
+      containers:
+      - image: ghcr.io/jacquesehlers/landing:1.0.0
+        name: landing
+        resources: {}
+status: {}

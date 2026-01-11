@@ -1,0 +1,20 @@
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: landing
+  namespace: jmedia
+  labels:
+    app: landing
+  annotations:    
+    metallb.io/loadBalancerIPs: "192.168.2.211"
+    metallb.io/address-pool: "internal-pool"
+spec:
+  type: LoadBalancer
+  selector:
+    app: landing
+  ports:
+    - name: torrent-tcp
+      port: 80
+      targetPort: 80
+      protocol: TCP

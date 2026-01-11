@@ -11,10 +11,23 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
+    - jacquesops.site
+    secretName: jmedia-tls-root
+  - hosts:
     - qbittorrent.jacquesops.site
     - plex.jacquesops.site
     secretName: jmedia-tls
   rules:
+    - host: jacquesops.site
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: landing
+                port:
+                  number: 80
     - host: qbittorrent.jacquesops.site
       http:
         paths:

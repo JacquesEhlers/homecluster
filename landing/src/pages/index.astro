@@ -1,0 +1,107 @@
+---
+import { apps } from "../data/apps";
+
+// Group apps by `group` (optional)
+const groups = new Map<string, typeof apps>();
+for (const app of apps) {
+  const key = app.group ?? "Apps";
+  groups.set(key, [...(groups.get(key) ?? []), app]);
+}
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>jacquesops</title>
+    <meta name="description" content="Home lab landing page" />
+    <style>
+      :root {
+        --bg: #0b0d12;
+        --card: rgba(255,255,255,0.05);
+        --border: rgba(255,255,255,0.10);
+        --text: rgba(255,255,255,0.92);
+        --muted: rgba(255,255,255,0.70);
+      }
+		.icon-img {
+		width: 80px;
+		height: 80px;
+		object-fit: contain;
+		margin-bottom: 10px;
+		filter: drop-shadow(0 2px 6px rgba(0,0,0,0.35));
+		}
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+        background: radial-gradient(1200px 600px at 20% 0%, rgba(120,110,255,0.22), transparent 55%),
+                    radial-gradient(900px 500px at 90% 10%, rgba(0,200,255,0.18), transparent 55%),
+                    var(--bg);
+        color: var(--text);
+      }
+      .wrap { max-width: 980px; margin: 0 auto; padding: 56px 18px; }
+      header { margin-bottom: 28px; }
+      h1 { font-size: 42px; letter-spacing: -0.02em; margin: 0 0 10px; }
+      p { margin: 0; color: var(--muted); }
+      .group { margin-top: 26px; }
+      .group h2 { font-size: 16px; font-weight: 700; color: var(--muted); margin: 0 0 12px; }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 14px;
+      }
+      a.card {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+        padding: 16px;
+        border-radius: 16px;
+        background: var(--card);
+        border: 1px solid var(--border);
+        transition: transform 120ms ease, background 120ms ease, border-color 120ms ease;
+      }
+      a.card:hover {
+        transform: translateY(-2px);
+        background: rgba(255,255,255,0.07);
+        border-color: rgba(255,255,255,0.18);
+      }
+      .icon { font-size: 28px; margin-bottom: 10px; }
+      .name { font-weight: 750; font-size: 18px; margin-bottom: 6px; }
+      .desc { color: var(--muted); font-size: 13px; line-height: 1.35; }
+      footer { margin-top: 40px; color: var(--muted); font-size: 12px; }
+      code { background: rgba(255,255,255,0.08); padding: 2px 6px; border-radius: 8px; }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <header>
+        <h1>JacquesOps</h1>
+      </header>
+
+      {[...groups.entries()].map(([groupName, items]) => (
+        <section class="group">
+          <h2>{groupName}</h2>
+          <div class="grid">
+            {items.map((app) => (
+              <a class="card" href={app.url}>
+			{app.icon ? (
+			<img
+				src={app.icon}
+				alt={`${app.name} logo`}
+				class="icon-img"
+				loading="lazy"
+			/>
+			) : (
+			<div class="icon">🔗</div>
+			)}
+                <div class="name">{app.name}</div>
+                {app.description && <div class="desc">{app.description}</div>}
+              </a>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  </body>
+</html>

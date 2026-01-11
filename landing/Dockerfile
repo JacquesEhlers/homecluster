@@ -1,0 +1,21 @@
+# ---- build stage ----
+FROM node:20-alpine AS build
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+RUN npm run build
+
+# ---- runtime stage ----
+FROM nginx:alpine
+
+# Copy static site output to nginx web root
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# Optional: basic hardening headers & SPA-friendly config
+# (You can remove this if you don't want custom nginx config)
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80

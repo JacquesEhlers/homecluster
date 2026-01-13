@@ -1,0 +1,70 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: authelia-config
+  namespace: authelia
+data:
+  configuration.yml: |
+    theme: dark
+
+    server:
+      host: 0.0.0.0
+      port: 9091
+
+    log:
+      level: info
+
+    # VERY IMPORTANT behind ingress:
+    # Tell Authelia to trust proxy headers coming from your ingress.
+    # If you know your ingress controller Pod/Service CIDR, tighten this later.
+    # For homelabs, start permissive and lock down after confirming everything works.
+    totp:
+      issuer: "jacquesops.site"
+      digits: 6
+      period: 30
+      skew: 1
+
+    authentication_backend:
+      file:
+        path: /config/users.yml
+        watch: true
+
+    access_control:
+      default_policy: deny
+      rules:
+        # Allow the Authelia portal itself without requiring auth loop
+        - domain: "auth.jacquesops.site"
+          policy: bypass
+
+        # Protect qbittorrent with 2FA
+        - domain: "qbittorrent.jacquesops.site"
+          policy: two_factor
+
+    session:
+      name: authelia_session
+      # This should cover all subdomains
+      domain: jacquesops.site
+      same_site: lax
+      expiration: 12h
+      inactivity: 6h
+      remember_me: 90d
+      redis:
+        host: redis.authelia.svc.cluster.local
+        port: 6379
+
+    regulation:
+      max_retries: 3
+      find_time: 2m
+      ban_time: 10m
+
+    storage:
+      # Start simple with SQLite.
+      # For long-term robustness, move to Postgres later.
+      local:
+        path: /var/lib/authelia/db.sqlite3
+
+    notifier:
+      # "filesystem" is fine for a homelab start.
+      # It writes notifications to a mounted file instead of emailing.
+      filesystem:
+        filename: /var/lib/authelia/notification.txt

@@ -1,0 +1,15 @@
+1. Apply authelia-secrets.yaml 
+2. Create hash from '<my-pass>auth'
+3. docker run --rm -it authelia/authelia:latest sh and then authelia crypto hash generate argon2 --password '<my-pass>auth'
+4. That will give: $argon2id$v=19$m=65536,t=3,p=4$nyr8kHv600zqnHppazRZyw$q/vOn7+mdtfAKmS8+Jtr2lqqJ0ucc5nVIKQo1qPfUVM
+5. Create users.yaml: kubectl -n authelia create secret generic authelia-users --from-file=users.yml=./users.yml
+6. Apply redis Deployment/Service
+7. Create authelia CM: kubectl apply -f authelia-config.yaml
+8. Create authelia Deployment/service
+9. Delete old ingresses
+10. Apply new ingresses
+
+11. Working now, but: 
+11.1 hostpath persistence
+11.2 When first creating a user, it'll 'send you an email' with OTP, but it reallity it will write the OTP to the file system. Use this command to get it: kubectl -n authelia exec -it deploy/authelia -- cat /var/lib/authelia/notification.txt
+11.3 Users cant change their passwords (user secret. = read only filesystem)

@@ -1,0 +1,7 @@
+users:
+  jacques:
+    displayname: "Jacques Ehlers"
+    password: "$argon2id$v=19$m=65536,t=3,p=4$nyr8kHv600zqnHppazRZyw$q/vOn7+mdtfAKmS8+Jtr2lqqJ0ucc5nVIKQo1qPfUVM"
+    email: "jacquesehlers15@gmail.com"
+    groups:
+      - admins

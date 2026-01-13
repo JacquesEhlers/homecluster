@@ -1,0 +1,20 @@
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: gameoflife
+  namespace: gameoflife
+  labels:
+    app: gameoflife
+  annotations:    
+    metallb.io/loadBalancerIPs: "192.168.2.212"
+    metallb.io/address-pool: "internal-pool"
+spec:
+  type: LoadBalancer
+  selector:
+    app: gameoflife
+  ports:
+    - name: gameoflife-ui
+      port: 80
+      targetPort: 80
+      protocol: TCP

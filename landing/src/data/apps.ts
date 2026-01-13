@@ -21,6 +21,11 @@ export const apps: AppLink[] = [
     icon: "/icons/qbittorrent.png",
     group: "Media",
   },
-
-  // add more here...
+  {
+    name: "Game of Life",
+    url: "https://gameoflife.jacquesops.site",
+    description: "Conway's Game of Life",
+    icon: "/icons/gameoflife.png",
+    group: "Media",
+  },
 ];

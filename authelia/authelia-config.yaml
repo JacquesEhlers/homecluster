@@ -40,6 +40,10 @@ data:
         - domain: "qbittorrent.jacquesops.site"
           policy: two_factor
 
+        # Protect gameoflife with 2FA
+        - domain: "gameoflife.jacquesops.site"
+          policy: two_factor
+
     session:
       name: authelia_session
       # This should cover all subdomains

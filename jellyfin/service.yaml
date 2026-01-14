@@ -1,0 +1,45 @@
+# jellyfin-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: jellyfin-discovery
+  namespace: jmedia
+  labels:
+    app: jellyfin
+spec:
+  selector:
+    app: jellyfin
+  type: ClusterIP
+  ports:
+    - name: discovery
+      port: 7359
+      targetPort: 7359
+      protocol: UDP
+    - name: dlna
+      port: 1900
+      targetPort: 1900
+      protocol: UDP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jellyfin
+  namespace: jmedia
+  labels:
+    app: jellyfin
+  annotations:    
+    metallb.io/loadBalancerIPs: "192.168.2.213"
+    metallb.io/address-pool: "internal-pool"  
+spec:
+  type: LoadBalancer
+  selector:
+    app: jellyfin
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8096
+      protocol: TCP
+    - name: https
+      port: 443
+      targetPort: 8920
+      protocol: TCP

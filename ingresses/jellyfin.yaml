@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jellyfin
+  namespace: jmedia
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/proxy-body-size: "16m"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/auth-url: "http://authelia.authelia.svc.cluster.local:9091/api/verify"
+    nginx.ingress.kubernetes.io/auth-signin: "https://auth.jacquesops.site/?rd=$scheme://$host$request_uri"
+    nginx.ingress.kubernetes.io/auth-response-headers: "Remote-User,Remote-Groups,Remote-Name,Remote-Email"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - jellyfin.jacquesops.site
+      secretName: jellyfin-jacquesops-tls
+  rules:
+    - host: jellyfin.jacquesops.site
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: jellyfin
+                port:
+                  number: 80

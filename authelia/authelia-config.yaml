@@ -44,6 +44,10 @@ data:
         - domain: "gameoflife.jacquesops.site"
           policy: two_factor
 
+        # Protect jellyfin with 2FA
+        - domain: "jellyfin.jacquesops.site"
+          policy: two_factor
+
     session:
       name: authelia_session
       # This should cover all subdomains

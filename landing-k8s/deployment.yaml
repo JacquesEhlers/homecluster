@@ -19,7 +19,7 @@ spec:
       imagePullSecrets:
         - name: ghcr-pull
       containers:
-      - image: ghcr.io/jacquesehlers/landing:1.0.1
+      - image: ghcr.io/jacquesehlers/landing:1.0.3
         name: landing
         resources: {}
 status: {}

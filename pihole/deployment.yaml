@@ -1,0 +1,97 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pihole
+  namespace: pihole
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pihole
+  template:
+    metadata:
+      labels:
+        app: pihole
+    spec:
+      nodeSelector:
+        role: auth
+      containers:
+        - name: pihole
+          image: pihole/pihole:latest
+          imagePullPolicy: Always
+          ports:
+            - name: dns-tcp
+              containerPort: 53
+              protocol: TCP
+            - name: dns-udp
+              containerPort: 53
+              protocol: UDP
+            - name: http
+              containerPort: 80
+              protocol: TCP
+            - name: https
+              containerPort: 443
+              protocol: TCP
+            # Uncomment if you enable DHCP
+            # - name: dhcp
+            #   containerPort: 67
+            #   protocol: UDP
+            # Uncomment if you enable NTP
+            # - name: ntp
+            #   containerPort: 123
+            #   protocol: UDP
+          env:
+            - name: TZ
+              value: "Europe/London"
+            - name: FTLCONF_dns_listeningMode
+              value: "ALL"
+            - name: FTLCONF_webserver_api_password
+              valueFrom:
+                secretKeyRef:
+                  name: pihole-secret
+                  key: FTLCONF_webserver_api_password
+          volumeMounts:
+            - name: etc-pihole
+              mountPath: /etc/pihole
+            # Uncomment if you also want to persist /etc/dnsmasq.d
+            # - name: etc-dnsmasq
+            #   mountPath: /etc/dnsmasq.d
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+                - SYS_TIME
+                - SYS_NICE
+          # Optional but nice to have: don't run as root unless Pi-hole requires it in your setup
+          # securityContext:
+          #   runAsNonRoot: true
+          #   allowPrivilegeEscalation: false
+      volumes:
+        - name: etc-pihole
+          hostPath:
+            path: /k8s/pihole
+            type: Directory
+        # If you also want /etc/dnsmasq.d persisted, create a second PVC and mount it
+        # - name: etc-dnsmasq
+        #   persistentVolumeClaim:
+        #     claimName: pihole-etc-dnsmasq
+---
+# Web UI (HTTP/HTTPS) - ClusterIP is usually fine; expose via Ingress if you want
+apiVersion: v1
+kind: Service
+metadata:
+  name: pihole-web
+  namespace: pihole
+spec:
+  selector:
+    app: pihole
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+      protocol: TCP
+    - name: https
+      port: 443
+      targetPort: https
+      protocol: TCP

@@ -1,0 +1,8 @@
+apiVersion: v1
+data:
+  users.yml: dXNlcnM6CiAgamFjcXVlczoKICAgIGRpc3BsYXluYW1lOiAiSmFjcXVlcyBFaGxlcnMiCiAgICBwYXNzd29yZDogIiRhcmdvbjJpZCR2PTE5JG09NjU1MzYsdD0zLHA9NCRueXI4a0h2NjAwenFuSHBwYXpSWnl3JHEvdk9uNyttZHRmQUttUzgrSnRyMmxxcUowdWNjNW5WSUtRbzFxUGZVVk0iCiAgICBlbWFpbDogImphY3F1ZXNlaGxlcnMxNUBnbWFpbC5jb20iCiAgICBncm91cHM6CiAgICAgIC0gYWRtaW5zCgo=
+kind: Secret
+metadata:
+  creationTimestamp: null
+  name: authelia-users
+  namespace: authelia

@@ -1,0 +1,7 @@
+controller:
+
+  # -- The number of replicasets history to keep
+  revisionHistoryLimit: 5
+
+  # -- The number of events controller pods to run.
+  replicas: 1

@@ -1,0 +1,9 @@
+apiVersion: v2
+name: argo-events
+version: 2.4.20
+type: application
+
+dependencies:
+  - name: argo-events
+    version: "2.4.20"
+    repository: "https://argoproj.github.io/argo-helm"

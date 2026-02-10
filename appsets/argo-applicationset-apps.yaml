@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: homecluster-directory-apps
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: git@github.com:JacquesEhlers/homecluster.git
+        revision: main
+        files:
+          - path: apps/apps.yaml
+  template:
+    metadata:
+      name: "{{name}}"
+    spec:
+      project: default
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{namespace}}"
+      source:
+        repoURL: git@github.com:JacquesEhlers/homecluster.git
+        targetRevision: main
+        path: "{{path}}"
+        directory:
+          recurse: true
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace={{createNamespace}}
+          - PrunePropagationPolicy=foreground
+          - PruneLast=true

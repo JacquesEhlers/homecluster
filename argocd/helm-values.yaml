@@ -1,0 +1,22 @@
+global:
+  domain: argocd.jacquesops.site
+
+configs:
+  cm:
+    # Used for redirects and links in the UI
+    url: https://argocd.jacquesops.site
+
+  params:
+    # Since TLS is terminated at your NGINX ingress (and you likely have Authelia in front),
+    # run argocd-server without its own TLS.
+    server.insecure: true
+
+    # Makes CLI access work more reliably behind standard HTTPS ingress setups.
+    # Use: argocd login argocd.jacquesops.site --grpc-web
+    server.grpc.web: true
+
+server:
+  ingress:
+    enabled: false
+# argocd username: admin
+# argocd password: passpass

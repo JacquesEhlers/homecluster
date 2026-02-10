@@ -48,6 +48,10 @@ data:
         - domain: "jellyfin.jacquesops.site"
           policy: two_factor
 
+        # Protect argocd with 2FA
+        - domain: "argocd.jacquesops.site"
+          policy: two_factor
+
     session:
       name: authelia_session
       # This should cover all subdomains

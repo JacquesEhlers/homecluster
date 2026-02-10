@@ -7,6 +7,7 @@ spec:
   generators:
     - list:
         elements:
+
           - name: argo-events
             path: argo-events
             namespace: argo-events
@@ -30,7 +31,7 @@ spec:
             namespace: metallb
             valuesFile: values.yaml
             createNamespace: "true"
-
+            
   template:
     metadata:
       name: "{{name}}"

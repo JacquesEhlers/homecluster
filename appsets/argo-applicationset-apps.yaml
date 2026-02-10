@@ -5,11 +5,52 @@ metadata:
   namespace: argocd
 spec:
   generators:
-    - git:
-        repoURL: git@github.com:JacquesEhlers/homecluster.git
-        revision: main
-        files:
-          - path: apps/apps.yaml
+    - list:
+        elements:
+          - name: authelia
+            path: authelia
+            namespace: authelia
+            createNamespace: "true"
+
+          - name: gameoflife
+            path: game-of-life
+            namespace: gameoflife
+            createNamespace: "true"
+
+          - name: ghcr
+            path: ghcr
+            namespace: ghcr
+            createNamespace: "false"
+
+          - name: ingresses
+            path: ingresses
+            namespace: default
+            createNamespace: "false"
+
+          - name: jellyfin
+            path: jellyfin
+            namespace: jmedia
+            createNamespace: "true"
+
+          - name: landing
+            path: landing-k8s
+            namespace: jmedia
+            createNamespace: "false"
+
+          - name: pihole
+            path: pihole
+            namespace: pihole
+            createNamespace: "true"
+
+          - name: plex
+            path: plex
+            namespace: jmedia
+            createNamespace: "false"
+
+          - name: qbittorrent
+            path: qbittorrent
+            namespace: jmedia
+            createNamespace: "false"
   template:
     metadata:
       name: "{{name}}"

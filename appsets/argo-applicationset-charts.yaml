@@ -5,11 +5,32 @@ metadata:
   namespace: argocd
 spec:
   generators:
-    - git:
-        repoURL: git@github.com:JacquesEhlers/homecluster.git
-        revision: main
-        files:
-          - path: apps/charts.yaml
+    - list:
+        elements:
+          - name: argo-events
+            path: argo-events
+            namespace: argo-events
+            valuesFile: values.yaml
+            createNamespace: "true"
+
+          - name: argo-workflows
+            path: argo-workflows
+            namespace: argo-workflows
+            valuesFile: values.yaml
+            createNamespace: "true"
+
+          - name: cert-manager
+            path: cert-manager
+            namespace: cert-manager
+            valuesFile: values.yaml
+            createNamespace: "true"
+
+          - name: metallb
+            path: metallb
+            namespace: metallb
+            valuesFile: values.yaml
+            createNamespace: "true"
+
   template:
     metadata:
       name: "{{name}}"

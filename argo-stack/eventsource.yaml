@@ -1,20 +1,20 @@
-apiVersion: argoproj.io/v1alpha1
-kind: EventSource
-metadata:
-  name: authelia-configmap-watch
-  namespace: argo-events
-spec:
-  eventBusName: default
-  resource:
-    autheliaConfigUpdated:
-      namespace: authelia
-      group: ""
-      version: v1
-      resource: configmaps
-      eventTypes:
-        - UPDATE
-      filter:
-        fields:
-          - key: metadata.name
-            operation: "=="
-            value: authelia-config
+# apiVersion: argoproj.io/v1alpha1
+# kind: EventSource
+# metadata:
+#   name: authelia-configmap-watch
+#   namespace: argo-events
+# spec:
+#   eventBusName: default
+#   resource:
+#     autheliaConfigUpdated:
+#       namespace: authelia
+#       group: ""
+#       version: v1
+#       resource: configmaps
+#       eventTypes:
+#         - UPDATE
+#       filter:
+#         fields:
+#           - key: metadata.name
+#             operation: "=="
+#             value: authelia-config

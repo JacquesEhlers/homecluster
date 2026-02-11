@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: EventSource
 metadata:
   name: authelia-configmap-watch
-  namespace: argo-workflows
+  namespace: argo-events
 spec:
   eventBusName: default
   resource:

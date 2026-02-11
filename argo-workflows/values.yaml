@@ -3,4 +3,4 @@ images:
 
 server:
   authModes:
-    - server
+    - client

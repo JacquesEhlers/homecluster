@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: restart-authelia
+  namespace: argo-workflows
+spec:
+  entrypoint: restart
+  serviceAccountName: argo-workflows-server
+  templates:
+  - name: restart
+    container:
+      image: bitnami/kubectl:latest
+      command: [sh, -c]
+      args:
+        - |
+          kubectl -n authelia rollout restart deploy/authelia

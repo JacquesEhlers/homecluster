@@ -7,6 +7,12 @@ spec:
   generators:
     - list:
         elements:
+
+          - name: argo-stack
+            path: argo-stack
+            namespace: default
+            createNamespace: "false"
+
           - name: authelia
             path: authelia
             namespace: authelia

@@ -4,7 +4,8 @@ metadata:
   name: authelia-configmap-watch
   namespace: argo-events
 spec:
-  serviceAccountName: argo-events-admin
+  template:
+    serviceAccountName: argo-events-admin
   eventBusName: default
   resource:
     autheliaConfigUpdated:

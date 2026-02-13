@@ -1,25 +1,25 @@
-# apiVersion: argoproj.io/v1alpha1
-# kind: Sensor
-# metadata:
-#   name: restart-authelia-on-config-change
-#   namespace: argo-events
-# spec:
-#   eventBusName: default
-#   template:
-#     serviceAccountName: argo-events-admin
-#   dependencies:
-#     - name: autheliaCfg
-#       eventSourceName: authelia-configmap-watch
-#       eventName: autheliaConfigUpdated
-#   triggers:
-#     - template:
-#         name: submit-restart-authelia
-#         argoWorkflow:
-#           operation: submit-from
-#           source:
-#             resource:
-#               apiVersion: argoproj.io/v1alpha1
-#               kind: WorkflowTemplate
-#               metadata:
-#                 name: restart-authelia
-#                 namespace: argo-workflows
+apiVersion: argoproj.io/v1alpha1
+kind: Sensor
+metadata:
+  name: restart-authelia-on-config-change
+  namespace: argo-events
+spec:
+  eventBusName: default
+  template:
+    serviceAccountName: argo-events-admin
+  dependencies:
+    - name: autheliaCfg
+      eventSourceName: authelia-configmap-watch
+      eventName: autheliaConfigUpdated
+  triggers:
+    - template:
+        name: submit-restart-authelia
+        argoWorkflow:
+          operation: submit-from
+          source:
+            resource:
+              apiVersion: argoproj.io/v1alpha1
+              kind: WorkflowTemplate
+              metadata:
+                name: restart-authelia
+                namespace: argo-workflows

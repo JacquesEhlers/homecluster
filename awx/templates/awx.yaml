@@ -5,10 +5,10 @@ metadata:
 spec:
   # Node placement
   node_selector: |
-    kubernetes.io/hostname: worker-01
+    kubernetes.io/hostname: node01
 
   postgres_node_selector: |
-    kubernetes.io/hostname: worker-01
+    kubernetes.io/hostname: node01
 
   # --- Networking (MetalLB LoadBalancer) ---
   service_type: LoadBalancer

@@ -13,7 +13,7 @@ spec:
   # --- Networking (MetalLB LoadBalancer) ---
   service_type: LoadBalancer
 
-  service_annotations:
+  service_annotations: |
     metallb.io/loadBalancerIPs: "192.168.2.215"
     metallb.io/address-pool: "internal-pool"
 

@@ -1,0 +1,30 @@
+apiVersion: awx.ansible.com/v1beta1
+kind: AWX
+metadata:
+  name: awx
+spec:
+  # Node placement
+  node_selector:
+    kubernetes.io/hostname: {{ .Values.nodeName }}
+
+  postgres_node_selector:
+    kubernetes.io/hostname: {{ .Values.nodeName }}
+
+  # --- Networking (MetalLB LoadBalancer) ---
+  service_type: LoadBalancer
+
+  service_annotations:
+    metallb.io/loadBalancerIPs: "192.168.2.215"
+    metallb.io/address-pool: "internal-pool"
+
+  # Storage for Postgres
+  postgres_storage_class: awx-local
+  postgres_storage_size: 10Gi
+
+  projects_persistence: true
+  projects_storage_class: awx-local
+  projects_storage_size: 20Gi
+
+  # Admin config
+  admin_user: admin
+  admin_password_secret: awx-admin-password

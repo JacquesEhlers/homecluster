@@ -20,6 +20,12 @@ spec:
             valuesFile: values.yaml
             createNamespace: "true"
 
+          - name: awx
+            path: awx
+            namespace: awx
+            valuesFile: values.yaml
+            createNamespace: "true"
+
           - name: cert-manager
             path: cert-manager
             namespace: cert-manager

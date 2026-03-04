@@ -7,9 +7,6 @@ spec:
   node_selector: |
     kubernetes.io/hostname: node01
 
-  postgres_node_selector: |
-    kubernetes.io/hostname: node01
-
   # --- Networking (MetalLB LoadBalancer) ---
   service_type: LoadBalancer
 
@@ -19,7 +16,6 @@ spec:
 
   # Storage for Postgres
   postgres_storage_class: awx-local
-  postgres_storage_size: 10Gi
 
   projects_persistence: true
   projects_storage_class: awx-local

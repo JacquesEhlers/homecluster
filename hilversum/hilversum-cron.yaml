@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: hilversum-appointment-check
+spec:
+  schedule: "0 * * * *"   # every hour
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          imagePullSecrets:
+            - name: ghcr-pull
+          containers:
+            - name: hilversum-check
+              image: ghcr.io/jacquesehlers/hilversum-appointment:latest
+              imagePullPolicy: Always

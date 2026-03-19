@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: hilversum-appointment-config
 data:
-  DATE_1: "19 maart"
+  DATE_1: "30 maart"
   DATE_2: "31 maart"

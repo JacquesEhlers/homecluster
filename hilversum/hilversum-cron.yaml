@@ -15,5 +15,16 @@ spec:
             - name: ghcr-pull
           containers:
             - name: hilversum-check
-              image: ghcr.io/jacquesehlers/hilversum-appointment:latest
+              image: ghcr.io/jacquesehlers/hilversum-appointment:v2
               imagePullPolicy: Always
+              env:
+                - name: DATE_1
+                  valueFrom:
+                    configMapKeyRef:
+                      name: hilversum-appointment-config
+                      key: DATE_1
+                - name: DATE_2
+                  valueFrom:
+                    configMapKeyRef:
+                      name: hilversum-appointment-config
+                      key: DATE_2

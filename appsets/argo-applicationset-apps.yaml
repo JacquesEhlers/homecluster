@@ -28,11 +28,6 @@ spec:
             namespace: ghcr
             createNamespace: "false"
 
-          - name: hilversum
-            path: hilversum
-            namespace: default
-            createNamespace: "false"
-
           - name: ingresses
             path: ingresses
             namespace: default

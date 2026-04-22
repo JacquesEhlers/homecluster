@@ -75,6 +75,8 @@ spec:
               mountPath: /config
             - name: series
               mountPath: /tv
+            - name: seriesj
+              mountPath: /seriesj
             - name: movies
               mountPath: /movies
           readinessProbe:

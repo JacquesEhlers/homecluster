@@ -32,12 +32,18 @@ spec:
             valuesFile: values.yaml
             createNamespace: "true"
 
+          - name: ingress-nginx
+            path: ingress-nginx
+            namespace: ingress-nginx
+            valuesFile: values.yaml
+            createNamespace: "true"
+
           - name: metallb
             path: metallb
             namespace: metallb
             valuesFile: values.yaml
             createNamespace: "true"
-            
+
   template:
     metadata:
       name: "{{name}}"

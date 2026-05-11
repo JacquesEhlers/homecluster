@@ -75,8 +75,6 @@ spec:
               mountPath: /config
             - name: series
               mountPath: /tv
-            - name: seriesj
-              mountPath: /seriesj
             - name: movies
               mountPath: /movies
           readinessProbe:
@@ -105,8 +103,4 @@ spec:
         - name: movies
           hostPath:
             path: /media/plex/movies
-            type: Directory
-        - name: seriesj
-          hostPath:
-            path: /media/plex/seriesj
             type: Directory

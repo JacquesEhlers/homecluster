@@ -43,10 +43,10 @@ spec:
             namespace: jmedia
             createNamespace: "false"
 
-          - name: plex
-            path: plex
-            namespace: jmedia
-            createNamespace: "false"
+          # - name: plex
+          #   path: plex
+          #   namespace: jmedia
+          #   createNamespace: "false"
 
           - name: qbittorrent
             path: qbittorrent

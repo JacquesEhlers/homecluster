@@ -79,3 +79,10 @@ spec:
           - CreateNamespace={{createNamespace}}
           - PrunePropagationPolicy=foreground
           - PruneLast=true
+      ignoreDifferences:
+        - group: discovery.k8s.io
+          kind: EndpointSlice
+          name: pihole-external-1
+          namespace: pihole
+          jqPathExpressions:
+            - '.endpoints[]?.conditions'

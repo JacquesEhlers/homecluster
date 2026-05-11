@@ -1,0 +1,44 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: homecluster-directory-apps-serverside
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+
+          - name: nodes
+            path: nodes
+            namespace: default
+            createNamespace: "false"
+
+  template:
+    metadata:
+      name: "{{name}}"
+    spec:
+      project: default
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{namespace}}"
+      source:
+        repoURL: git@github.com:JacquesEhlers/homecluster.git
+        targetRevision: main
+        path: "{{path}}"
+        directory:
+          recurse: true
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - ServerSideApply=true
+          - CreateNamespace={{createNamespace}}
+          - PrunePropagationPolicy=foreground
+          - PruneLast=true
+      ignoreDifferences:
+        - group: ""
+          kind: Node
+          jsonPointers:
+            - /status
+            - /metadata/annotations

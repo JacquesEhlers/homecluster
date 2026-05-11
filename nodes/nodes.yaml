@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Node
+metadata:
+  name: controlplane
+  labels:
+    node-role.kubernetes.io/control-plane: ""
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: jmedia
+  labels:
+    role: qbittorrent
+    role2: plex
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: node01
+  labels:
+    role: auth
+    use: minecraft
+    apparmor: yebo

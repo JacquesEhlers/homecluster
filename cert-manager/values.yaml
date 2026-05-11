@@ -1,1 +1,3 @@
-# Empt for now
+cert-manager:
+  crds:
+    enabled: true

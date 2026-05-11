@@ -1,0 +1,26 @@
+ingress-nginx:
+  controller:
+    ingressClassResource:
+      name: nginx
+      enabled: true
+      default: true
+      controllerValue: k8s.io/ingress-nginx
+
+    ingressClass: nginx
+
+    service:
+      enabled: true
+      type: LoadBalancer
+
+      # Static IP to expose the ingress controller on your LAN.
+      loadBalancerIP: 192.168.2.201
+
+      ports:
+        http: 80
+        https: 443
+
+      targetPorts:
+        http: http
+        https: https
+
+      externalTrafficPolicy: Local

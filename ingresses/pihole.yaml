@@ -1,29 +1,32 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: pihole
-  namespace: pihole
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    nginx.ingress.kubernetes.io/proxy-body-size: "16m"
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/auth-url: "http://authelia.authelia.svc.cluster.local:9091/api/verify"
-    nginx.ingress.kubernetes.io/auth-signin: "https://auth.jacquesops.site/?rd=$scheme://$host$request_uri"
-    nginx.ingress.kubernetes.io/auth-response-headers: "Remote-User,Remote-Groups,Remote-Name,Remote-Email"
+    name: pihole
+    namespace: pihole
+    annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
-  ingressClassName: nginx
-  tls:
-    - hosts:
-        - pihole.jacquesops.site
-      secretName: pihole-jacquesops-tls
-  rules:
-    - host: pihole.jacquesops.site
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: pihole-external
-                port:
-                  number: 80
+    ingressClassName: nginx
+    tls:
+        - hosts:
+              - pihole.jacquesops.site
+          secretName: pihole-tls
+    rules:
+        - host: pihole.jacquesops.site
+          http:
+              paths:
+                  - path: /admin
+                    pathType: Prefix
+                    backend:
+                        service:
+                            name: pihole
+                            port:
+                                number: 80
+
+                  - path: /api
+                    pathType: Prefix
+                    backend:
+                        service:
+                            name: pihole
+                            port:
+                                number: 80

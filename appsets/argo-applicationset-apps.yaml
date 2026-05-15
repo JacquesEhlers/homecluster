@@ -8,6 +8,11 @@ spec:
     - list:
         elements:
 
+          - name: argocd-hooks
+            path: argocd-hooks
+            namespace: argocd-hooks
+            createNamespace: "true"
+
           - name: argo-stack
             path: argo-stack
             namespace: default

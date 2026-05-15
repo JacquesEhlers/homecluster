@@ -8,11 +8,6 @@ spec:
     - list:
         elements:
 
-          - name: argocd-hooks
-            path: argocd-hooks
-            namespace: argocd-hooks
-            createNamespace: "true"
-
           - name: argo-stack
             path: argo-stack
             namespace: default
@@ -48,10 +43,10 @@ spec:
             namespace: jmedia
             createNamespace: "false"
 
-          - name: pihole
-            path: pihole
-            namespace: pihole
-            createNamespace: "true"
+          # - name: pihole
+          #   path: pihole
+          #   namespace: pihole
+          #   createNamespace: "true"
 
           # - name: plex
           #   path: plex

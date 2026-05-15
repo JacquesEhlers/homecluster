@@ -43,10 +43,10 @@ spec:
             namespace: jmedia
             createNamespace: "false"
 
-          # - name: pihole
-          #   path: pihole
-          #   namespace: pihole
-          #   createNamespace: "true"
+          - name: pihole
+            path: pihole
+            namespace: pihole
+            createNamespace: "true"
 
           # - name: plex
           #   path: plex

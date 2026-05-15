@@ -4,7 +4,7 @@ kind: ConfigMap
 metadata:
   name: demo-config
 data:
-  message: "Hello from ConfigMap"
+  message: "Hello from ConfigMap2"
 
 ---
 apiVersion: batch/v1

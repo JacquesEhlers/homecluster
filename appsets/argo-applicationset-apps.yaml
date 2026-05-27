@@ -43,8 +43,8 @@ spec:
             namespace: jmedia
             createNamespace: "false"
 
-          - name: overseerr
-            path: overseerr
+          - name: jellyseerr
+            path: jellyseerr
             namespace: jmedia
             createNamespace: "false"
 

@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: overseerr
+  name: jellyseerr
   namespace: jmedia
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
@@ -14,16 +14,16 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - overseerr.jacquesops.site
-      secretName: overseerr-jacquesops-tls
+        - jellyseerr.jacquesops.site
+      secretName: jellyseerr-jacquesops-tls
   rules:
-    - host: overseerr.jacquesops.site
+    - host: jellyseerr.jacquesops.site
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: overseerr
+                name: jellyseerr
                 port:
                   number: 80

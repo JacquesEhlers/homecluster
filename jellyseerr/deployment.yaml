@@ -1,37 +1,40 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: overseerr
+  name: jellyseerr
   namespace: jmedia
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: overseerr
+      app: jellyseerr
   template:
     metadata:
       labels:
-        app: overseerr
+        app: jellyseerr
     spec:
       nodeSelector:
         role2: plex
+
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+
       containers:
-        - name: overseerr
-          image: linuxserver/overseerr:latest
+        - name: jellyseerr
+          image: fallenbagel/jellyseerr:latest
           ports:
             - containerPort: 5055
           env:
             - name: TZ
               value: "Europe/Amsterdam"
-            - name: PUID
-              value: "1000"
-            - name: PGID
-              value: "1000"
           volumeMounts:
-            - name: overseerr-config
-              mountPath: /config
+            - name: jellyseerr-config
+              mountPath: /app/config
+
       volumes:
-        - name: overseerr-config
+        - name: jellyseerr-config
           hostPath:
-            path: /media/overseerr/config
+            path: /media/jellyseerr/config
             type: DirectoryOrCreate

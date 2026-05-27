@@ -65,7 +65,7 @@ data:
           policy: two_factor
 
         # Protect argocd with 2FA
-        - domain: "overseerr.jacquesops.site"
+        - domain: "jellyseerr.jacquesops.site"
           policy: two_factor
 
     session:

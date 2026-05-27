@@ -43,6 +43,11 @@ spec:
             namespace: jmedia
             createNamespace: "false"
 
+          - name: overseerr
+            path: overseerr
+            namespace: jmedia
+            createNamespace: "false"
+
           - name: pihole
             path: pihole
             namespace: pihole

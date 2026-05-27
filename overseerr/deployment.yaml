@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: overseerr
+  namespace: jmedia
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: overseerr
+  template:
+    metadata:
+      labels:
+        app: overseerr
+    spec:
+      nodeSelector:
+        role2: plex
+      containers:
+        - name: overseerr
+          image: linuxserver/overseerr:latest
+          ports:
+            - containerPort: 5055
+          env:
+            - name: TZ
+              value: "Europe/Amsterdam"
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+          volumeMounts:
+            - name: overseerr-config
+              mountPath: /config
+      volumes:
+        - name: overseerr-config
+          hostPath:
+            path: /media/overseerr/config
+            type: DirectoryOrCreate

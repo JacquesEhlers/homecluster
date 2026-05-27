@@ -16,11 +16,6 @@ spec:
       nodeSelector:
         role2: plex
 
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-
       containers:
         - name: jellyseerr
           image: fallenbagel/jellyseerr:latest

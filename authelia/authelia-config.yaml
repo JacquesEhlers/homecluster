@@ -68,6 +68,14 @@ data:
         - domain: "jellyseerr.jacquesops.site"
           policy: two_factor
 
+        # Protect argocd with 2FA
+        - domain: "radarr.jacquesops.site"
+          policy: two_factor
+
+        # Protect argocd with 2FA
+        - domain: "sonarr.jacquesops.site"
+          policy: two_factor
+
     session:
       name: authelia_session
       # This should cover all subdomains

@@ -14,7 +14,7 @@ spec:
         app: authelia
     spec:
       nodeSelector:
-        role: auth
+        nodes.storage: config
       containers:
         - name: authelia
           image: authelia/authelia:latest

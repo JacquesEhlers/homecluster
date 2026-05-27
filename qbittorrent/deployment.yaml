@@ -16,7 +16,7 @@ spec:
         app: qbittorrent
     spec:
       nodeSelector:
-        role: qbittorrent
+        nodes.storage: data
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000

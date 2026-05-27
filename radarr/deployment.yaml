@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: radarr
+  namespace: jmedia
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: radarr
+  template:
+    metadata:
+      labels:
+        app: radarr
+    spec:
+      nodeSelector:
+        nodes.storage: data
+      containers:
+        - name: radarr
+          image: linuxserver/radarr:latest
+          ports:
+            - containerPort: 7878
+          env:
+            - name: TZ
+              value: "Europe/Amsterdam"
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+          volumeMounts:
+            - name: radarr-config
+              mountPath: /config
+            - name: radarr-movies
+              mountPath: /movies
+            - name: radarr-downloads
+              mountPath: /downloads
+      volumes:
+        - name: radarr-config
+          hostPath:
+            path: /media/radarr/config
+            type: DirectoryOrCreate
+        - name: radarr-movies
+          hostPath:
+            path: /media/plex/movies
+            type: DirectoryOrCreate
+        - name: radarr-downloads
+          hostPath:
+            path: /media/qbittorrent/downloads
+            type: DirectoryOrCreate

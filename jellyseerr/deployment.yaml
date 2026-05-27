@@ -14,8 +14,7 @@ spec:
         app: jellyseerr
     spec:
       nodeSelector:
-        role2: plex
-
+        nodes.storage: config
       containers:
         - name: jellyseerr
           image: fallenbagel/jellyseerr:latest

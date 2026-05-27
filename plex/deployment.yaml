@@ -16,7 +16,7 @@ spec:
         app: plex
     spec:
       nodeSelector:
-        role2: plex
+        nodes.storage: data
       # Run Plex with the same user/group IDs as your docker-compose for proper file ownership
       securityContext:
         runAsUser: 1000

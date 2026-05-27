@@ -53,6 +53,16 @@ spec:
             namespace: pihole
             createNamespace: "true"
 
+          - name: radarr
+            path: radarr
+            namespace: jmedia
+            createNamespace: "true"
+
+          - name: sonarr
+            path: sonarr
+            namespace: jmedia
+            createNamespace: "true"
+
           # - name: plex
           #   path: plex
           #   namespace: jmedia

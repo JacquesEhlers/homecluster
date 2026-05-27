@@ -10,14 +10,11 @@ kind: Node
 metadata:
   name: jmedia
   labels:
-    role: qbittorrent
-    role2: plex
+    nodes.storage: data
 ---
 apiVersion: v1
 kind: Node
 metadata:
   name: node01
   labels:
-    role: auth
-    use: minecraft
-    apparmor: yebo
+    nodes.storage: config

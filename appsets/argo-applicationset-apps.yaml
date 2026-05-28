@@ -53,6 +53,11 @@ spec:
             namespace: pihole
             createNamespace: "true"
 
+          - name: prowlarr
+            path: prowlarr
+            namespace: jmedia
+            createNamespace: "true"
+
           - name: radarr
             path: radarr
             namespace: jmedia

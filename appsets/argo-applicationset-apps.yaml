@@ -48,10 +48,10 @@ spec:
             namespace: jmedia
             createNamespace: "false"
 
-          # - name: jellyseerr
-          #   path: jellyseerr
-          #   namespace: jmedia
-          #   createNamespace: "false"
+          - name: jellyseerr
+            path: jellyseerr
+            namespace: jmedia
+            createNamespace: "false"
 
           - name: pihole
             path: pihole

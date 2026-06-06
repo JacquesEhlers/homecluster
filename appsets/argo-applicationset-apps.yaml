@@ -18,6 +18,11 @@ spec:
             namespace: authelia
             createNamespace: "true"
 
+          - name: bazarr
+            path: bazarr
+            namespace: jmedia
+            createNamespace: "true"
+
           - name: flaresolverr
             path: flaresolverr
             namespace: jmedia

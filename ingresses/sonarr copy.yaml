@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ombir
+  name: ombi
   namespace: jmedia
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
@@ -14,16 +14,16 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - ombir.jacquesops.site
-      secretName: ombir-jacquesops-tls
+        - ombi.jacquesops.site
+      secretName: ombi-jacquesops-tls
   rules:
-    - host: ombir.jacquesops.site
+    - host: ombi.jacquesops.site
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: ombir
+                name: ombi
                 port:
                   number: 80

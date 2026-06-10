@@ -42,13 +42,13 @@ spec:
               mountPath: /cache
             - name: movies
               mountPath: /media/movies
-              readOnly: true
+              readOnly: false
             - name: series
               mountPath: /media/series
-              readOnly: true
+              readOnly: false
             - name: music
               mountPath: /media/music
-              readOnly: true
+              readOnly: false
           readinessProbe:
             httpGet:
               path: /

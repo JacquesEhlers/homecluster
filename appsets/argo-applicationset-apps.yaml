@@ -63,6 +63,11 @@ spec:
             namespace: jmedia
             createNamespace: "false"
 
+          - name: ombi
+            path: ombi
+            namespace: jmedia
+            createNamespace: "false"
+
           - name: pihole
             path: pihole
             namespace: pihole

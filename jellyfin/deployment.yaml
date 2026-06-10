@@ -46,6 +46,9 @@ spec:
             - name: series
               mountPath: /media/series
               readOnly: true
+            - name: music
+              mountPath: /media/music
+              readOnly: true
           readinessProbe:
             httpGet:
               path: /
@@ -75,4 +78,8 @@ spec:
         - name: series
           hostPath:
             path: /media/plex/series
+            type: Directory
+        - name: music
+          hostPath:
+            path: /media/lidarr/music
             type: Directory

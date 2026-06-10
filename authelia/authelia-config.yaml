@@ -91,9 +91,6 @@ data:
         - domain: "bazarr.jacquesops.site"
           policy: two_factor
 
-        - domain: "ombi.jacquesops.site"
-          policy: two_factor
-
     session:
       name: authelia_session
       # This should cover all subdomains

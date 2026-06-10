@@ -84,6 +84,10 @@ data:
         - domain: "flaresolverr.jacquesops.site"
           policy: two_factor
 
+        # Protect argocd with 2FA
+        - domain: "lidarr.jacquesops.site"
+          policy: two_factor
+
 
     session:
       name: authelia_session

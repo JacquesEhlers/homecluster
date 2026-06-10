@@ -48,6 +48,11 @@ spec:
             namespace: jmedia
             createNamespace: "false"
 
+          - name: lidarr
+            path: lidarr
+            namespace: jmedia
+            createNamespace: "false"
+
           - name: jellyseerr
             path: jellyseerr
             namespace: jmedia

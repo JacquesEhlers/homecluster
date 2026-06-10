@@ -18,6 +18,11 @@ spec:
             namespace: authelia
             createNamespace: "true"
 
+          - name: bazarr
+            path: bazarr
+            namespace: jmedia
+            createNamespace: "true"
+
           - name: flaresolverr
             path: flaresolverr
             namespace: jmedia
@@ -102,9 +107,9 @@ spec:
         directory:
           recurse: true
       syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
+        # automated:
+        #   prune: true
+        #   selfHeal: true
         syncOptions:
           - CreateNamespace={{createNamespace}}
           - PrunePropagationPolicy=foreground

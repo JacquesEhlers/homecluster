@@ -88,6 +88,8 @@ data:
         - domain: "lidarr.jacquesops.site"
           policy: two_factor
 
+        - domain: "bazarr.jacquesops.site"
+          policy: two_factor
 
     session:
       name: authelia_session

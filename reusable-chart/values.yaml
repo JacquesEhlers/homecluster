@@ -1,17 +1,36 @@
+namespace: jmedia
+
 deployment:
   enabled: true
 
+  name: ""
+
+  image: ""
+
   replicaCount: 1
 
-  image:
-    repository: nginx
-    tag: latest
+  nodeType: config
 
-  containerPort: 80
+  ports: []
+
+  extraEnv: []
+
+  volumeMounts: []
+
+  volumes: []
+
+  readinessProbe: {}
+
+  livenessProbe: {}
 
 service:
-  enabled: true
+  disabled: false
 
-  type: ClusterIP
+  type: LoadBalancer
+
   port: 80
-  targetPort: 80
+
+  loadBalancerIP: ""
+
+ingress:
+  disabled: false

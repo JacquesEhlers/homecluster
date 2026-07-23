@@ -1,19 +1,26 @@
-{{- if .Values.service.enabled }}
+{{- if not (default false .Values.service.disabled) }}
+
+{{- $name := required "deployment.name is required" .Values.deployment.name -}}
+{{- $lbIP := required "service.loadBalancerIP is required" .Values.service.loadBalancerIP -}}
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name }}
-  namespace: example
+  name: {{ $name }}
+  namespace: {{ .Values.namespace }}
+  annotations:
+    metallb.io/loadBalancerIPs: {{ $lbIP | quote }}
+    metallb.io/address-pool: "internal-pool"
 
 spec:
   type: {{ .Values.service.type }}
 
   selector:
-    app: {{ .Release.Name }}
+    app: {{ $name }}
 
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: {{ .Values.service.targetPort }}
+    - name: http
+      port: {{ .Values.service.port }}
+      targetPort: {{ (index .Values.deployment.ports 0).containerPort }}
 
 {{- end }}

@@ -1,28 +1,80 @@
-{{- if .Values.deployment.enabled }}
+{{- if not (default false .Values.deployment.disabled) }}
+
+{{- $name := required "deployment.name is required" .Values.deployment.name -}}
+{{- $image := required "deployment.image is required" .Values.deployment.image -}}
+
+{{- if not (or (eq .Values.deployment.nodeType "config") (eq .Values.deployment.nodeType "data")) }}
+{{- fail "deployment.nodeType must be either 'config' or 'data'" }}
+{{- end }}
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}
-  namespace: example
+  name: {{ $name }}
+  namespace: {{ .Values.namespace }}
 spec:
   replicas: {{ .Values.deployment.replicaCount }}
 
   selector:
     matchLabels:
-      app: {{ .Release.Name }}
+      app: {{ $name }}
 
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}
+        app: {{ $name }}
 
     spec:
-      containers:
-        - name: app
-          image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag }}"
+      nodeSelector:
+        nodes.storage: {{ .Values.deployment.nodeType }}
 
+      containers:
+        - name: {{ $name }}
+          image: {{ $image }}
+
+{{- with .Values.deployment.ports }}
           ports:
-            - containerPort: {{ .Values.deployment.containerPort }}
+{{ toYaml . | nindent 12 }}
+{{- end }}
+
+          env:
+            - name: TZ
+              value: "Europe/Amsterdam"
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+
+{{- with .Values.deployment.extraEnv }}
+{{ toYaml . | nindent 12 }}
+{{- end }}
+
+{{- if .Values.deployment.volumes }}
+          volumeMounts:
+{{- range .Values.deployment.volumes }}
+            - name: {{ .name }}
+              mountPath: {{ .podMount }}
+{{- end }}
+{{- end }}
+
+{{- with .Values.deployment.readinessProbe }}
+          readinessProbe:
+{{ toYaml . | nindent 12 }}
+{{- end }}
+
+{{- with .Values.deployment.livenessProbe }}
+          livenessProbe:
+{{ toYaml . | nindent 12 }}
+{{- end }}
+
+{{- if .Values.deployment.volumes }}
+      volumes:
+{{- range .Values.deployment.volumes }}
+        - name: {{ .name }}
+          hostPath:
+            path: {{ .hostMount }}
+            type: {{ default "DirectoryOrCreate" .type }}
+{{- end }}
+{{- end }}
 
 {{- end }}

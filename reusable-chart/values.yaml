@@ -1,0 +1,17 @@
+deployment:
+  enabled: true
+
+  replicaCount: 1
+
+  image:
+    repository: nginx
+    tag: latest
+
+  containerPort: 80
+
+service:
+  enabled: true
+
+  type: ClusterIP
+  port: 80
+  targetPort: 80

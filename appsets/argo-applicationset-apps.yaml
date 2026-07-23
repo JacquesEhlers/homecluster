@@ -18,11 +18,6 @@ spec:
             namespace: authelia
             createNamespace: "true"
 
-          - name: flaresolverr
-            path: flaresolverr
-            namespace: jmedia
-            createNamespace: "false"
-
           - name: gameoflife
             path: game-of-life
             namespace: gameoflife

@@ -38,6 +38,12 @@ spec:
             valuesFile: values.yaml
             createNamespace: "true"
 
+          - name: flaresolverr
+            path: flaresolverr
+            namespace: jmedia
+            valuesFile: values.yaml
+            createNamespace: "false"
+
           - name: ingress-nginx
             path: ingress-nginx
             namespace: ingress-nginx

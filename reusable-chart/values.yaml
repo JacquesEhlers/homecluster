@@ -34,3 +34,4 @@ service:
 
 ingress:
   disabled: false
+  className: nginx

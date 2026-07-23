@@ -28,7 +28,7 @@ spec:
 
           - name: example
             path: example
-            namespace: namespace: example
+            namespace: example
             valuesFile: values.yaml
             createNamespace: "true"
 

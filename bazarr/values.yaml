@@ -1,0 +1,34 @@
+reusable:
+
+  namespace: jmedia
+
+  deployment:
+
+    name: bazarr
+
+    image: linuxserver/bazarr:latest
+
+    nodeType: data
+
+    ports:
+      - containerPort: 6767
+
+    volumes:
+      - name: config
+        podMount: /config
+        hostMount: /media/bazarr/config
+
+      - name: movies
+        podMount: /movies
+        hostMount: /media/plex/movies
+
+      - name: tv
+        podMount: /tv
+        hostMount: /media/plex/series
+
+  service:
+    loadBalancerIP: 192.168.2.221
+
+  ingress:
+    disabled: false
+

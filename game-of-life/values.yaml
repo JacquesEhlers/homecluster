@@ -1,0 +1,21 @@
+reusable:
+
+  namespace: gameoflife
+
+  deployment:
+
+    name: gameoflife
+
+    image: ghcr.io/jacquesehlers/gol:1.0.0
+
+    nodeType: config
+
+    ports:
+      - containerPort: 80
+
+  service:
+    loadBalancerIP: 192.168.2.212
+
+  ingress:
+    disabled: false
+

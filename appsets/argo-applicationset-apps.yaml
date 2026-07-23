@@ -18,11 +18,6 @@ spec:
             namespace: authelia
             createNamespace: "true"
 
-          - name: gameoflife
-            path: game-of-life
-            namespace: gameoflife
-            createNamespace: "true"
-
           - name: ghcr
             path: ghcr
             namespace: ghcr

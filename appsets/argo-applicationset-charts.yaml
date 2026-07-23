@@ -44,6 +44,11 @@ spec:
             valuesFile: values.yaml
             createNamespace: "false"
 
+          - name: gameoflife
+            path: game-of-life
+            namespace: gameoflife
+            createNamespace: "true"
+
           - name: ingress-nginx
             path: ingress-nginx
             namespace: ingress-nginx

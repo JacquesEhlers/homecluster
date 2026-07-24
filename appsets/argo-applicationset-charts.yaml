@@ -24,7 +24,7 @@ spec:
           #   createNamespace: "true"
 
           - name: bazarr
-            path: bazarr
+            path: arr-stack/bazarr
             namespace: jmedia
             createNamespace: "false"
 
@@ -34,7 +34,7 @@ spec:
             createNamespace: "true"
 
           - name: flaresolverr
-            path: flaresolverr
+            path: arr-stack/flaresolverr
             namespace: jmedia
             createNamespace: "false"
 
@@ -49,7 +49,7 @@ spec:
             createNamespace: "true"
 
           - name: jellyfin
-            path: jellyfin
+            path: arr-stack/jellyfin
             namespace: jmedia
             createNamespace: "false"
 
@@ -59,12 +59,12 @@ spec:
             createNamespace: "false"
 
           - name: lidarr
-            path: lidarr
+            path: arr-stack/lidarr
             namespace: jmedia
             createNamespace: "false"
 
           - name: jellyseerr
-            path: jellyseerr
+            path: arr-stack/jellyseerr
             namespace: jmedia
             createNamespace: "false"
 
@@ -74,22 +74,22 @@ spec:
             createNamespace: "true"
 
           - name: prowlarr
-            path: prowlarr
+            path: arr-stack/prowlarr
             namespace: jmedia
             createNamespace: "true"
 
           - name: qbittorrent
-            path: qbittorrent
+            path: arr-stack/qbittorrent
             namespace: jmedia
             createNamespace: "false"
 
           - name: radarr
-            path: radarr
+            path: arr-stack/radarr
             namespace: jmedia
             createNamespace: "true"
 
           - name: sonarr
-            path: sonarr
+            path: arr-stack/sonarr
             namespace: jmedia
             createNamespace: "true"
 

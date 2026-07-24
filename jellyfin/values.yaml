@@ -28,10 +28,12 @@ reusable:
       - name: config
         podMount: /config
         hostMount: /media/jellyfin/config
+        readOnly: false
 
       - name: cache
         podMount: /cache
         hostMount: /media/jellyfin/cache
+        readOnly: false
 
       - name: movies
         podMount: /media/movies

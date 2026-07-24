@@ -11,7 +11,9 @@ reusable:
     nodeType: data
 
     ports:
-      - containerPort: 6767
+      - name: http
+        containerPort: 6767
+        protocol: TCP
 
     volumes:
       - name: config

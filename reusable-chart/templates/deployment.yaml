@@ -54,6 +54,7 @@ spec:
 {{- range .Values.deployment.volumes }}
             - name: {{ .name }}
               mountPath: {{ .podMount }}
+              readOnly: {{- if hasKey . "readOnly" }} {{ .readOnly }}{{ else }} true{{ end }}
 {{- end }}
 {{- end }}
 

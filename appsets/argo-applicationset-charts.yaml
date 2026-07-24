@@ -56,6 +56,12 @@ spec:
             valuesFile: values.yaml
             createNamespace: "true"
 
+          - name: jellyfin
+            path: jellyfin
+            namespace: jmedia
+            valuesFile: values.yaml
+            createNamespace: "false"
+
           - name: metallb
             path: metallb
             namespace: metallb

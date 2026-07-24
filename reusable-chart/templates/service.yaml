@@ -2,6 +2,7 @@
 
 {{- $name := required "deployment.name is required" .Values.deployment.name -}}
 {{- $lbIP := required "service.loadBalancerIP is required" .Values.service.loadBalancerIP -}}
+{{- $ports := required "deployment.ports is required" .Values.deployment.ports -}}
 
 apiVersion: v1
 kind: Service
@@ -19,8 +20,11 @@ spec:
     app: {{ $name }}
 
   ports:
-    - name: http
-      port: {{ .Values.service.port }}
-      targetPort: {{ (index .Values.deployment.ports 0).containerPort }}
+    {{- range $index, $port := $ports }}
+    - name: {{ default (printf "port-%d" $index) $port.name }}
+      port: {{ $port.containerPort }}
+      targetPort: {{ $port.containerPort }}
+      protocol: {{ default "TCP" $port.protocol }}
+    {{- end }}
 
 {{- end }}

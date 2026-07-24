@@ -25,11 +25,7 @@ deployment:
 
 service:
   disabled: false
-
   type: LoadBalancer
-
-  port: 80
-
   loadBalancerIP: ""
 
 ingress:

@@ -28,11 +28,6 @@ spec:
             namespace: default
             createNamespace: "false"
 
-          - name: jellyfin
-            path: jellyfin
-            namespace: jmedia
-            createNamespace: "true"
-
           - name: landing
             path: landing-k8s
             namespace: jmedia

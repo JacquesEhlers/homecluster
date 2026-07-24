@@ -1,0 +1,59 @@
+reusable:
+
+  namespace: jmedia
+
+  deployment:
+
+    name: qbittorrent
+
+    image: lscr.io/linuxserver/qbittorrent:latest
+
+    nodeType: data
+
+    securityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+
+    extraEnv:
+      - name: WEBUI_PORT
+        value: "8080"
+      - name: TORRENTING_PORT
+        value: "6881"
+    ports:
+      - name: http
+        containerPort: 8080
+        protocol: TCP
+      - name: torrent-tcp
+        containerPort: 6881
+        protocol: TCP
+      - name: torrent-udp
+        containerPort: 6881
+        protocol: UDP
+
+    volumes:
+      - name: config
+        podMount: /config
+        hostMount: /media/qbittorrent/appdata
+        readOnly: false
+
+      - name: downloads
+        podMount: /downloads
+        hostMount: /media/qbittorrent/downloads
+        readOnly: false
+
+      - name: movies
+        podMount: /plex-movies
+        hostMount: /media/plex/movies
+        readOnly: false
+
+      - name: series
+        podMount: /plex-series
+        hostMount: /media/plex/series
+        readOnly: false
+
+  service:
+    loadBalancerIP: 192.168.2.205
+
+  ingress:
+    disabled: false

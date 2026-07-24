@@ -21,8 +21,9 @@ spec:
 
   ports:
     {{- range $index, $port := $ports }}
-    - name: {{ default (printf "port-%d" $index) $port.name }}
-      port: {{ $port.containerPort }}
+    {{- $portName := default (printf "port-%d" $index) $port.name }}
+    - name: {{ $portName }}
+      port: {{ if eq $portName "http" }}80{{ else }}{{ $port.containerPort }}{{ end }}
       targetPort: {{ $port.containerPort }}
       protocol: {{ default "TCP" $port.protocol }}
     {{- end }}

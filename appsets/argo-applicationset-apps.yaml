@@ -8,10 +8,10 @@ spec:
     - list:
         elements:
 
-          - name: argo-stack
-            path: argo-stack
-            namespace: default
-            createNamespace: "false"
+          # - name: argo-stack
+          #   path: argo-stack
+          #   namespace: default
+          #   createNamespace: "false"
 
           - name: authelia
             path: authelia
@@ -28,50 +28,11 @@ spec:
             namespace: default
             createNamespace: "false"
 
-          - name: landing
-            path: landing-k8s
-            namespace: jmedia
-            createNamespace: "false"
-
-          - name: lidarr
-            path: lidarr
-            namespace: jmedia
-            createNamespace: "false"
-
-          - name: jellyseerr
-            path: jellyseerr
-            namespace: jmedia
-            createNamespace: "false"
-
           - name: pihole
             path: pihole
             namespace: pihole
             createNamespace: "true"
 
-          - name: prowlarr
-            path: prowlarr
-            namespace: jmedia
-            createNamespace: "true"
-
-          - name: radarr
-            path: radarr
-            namespace: jmedia
-            createNamespace: "true"
-
-          - name: sonarr
-            path: sonarr
-            namespace: jmedia
-            createNamespace: "true"
-
-          # - name: plex
-          #   path: plex
-          #   namespace: jmedia
-          #   createNamespace: "false"
-
-          - name: qbittorrent
-            path: qbittorrent
-            namespace: jmedia
-            createNamespace: "false"
   template:
     metadata:
       name: "{{name}}"

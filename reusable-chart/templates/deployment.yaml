@@ -25,6 +25,16 @@ spec:
         app: {{ $name }}
 
     spec:
+{{- if .Values.deployment.selfHostedImage }}
+      imagePullSecrets:
+        - name: ghcr-pull
+{{- end }}
+
+{{- if .Values.deployment.securityContext }}
+      securityContext:
+{{ toYaml .Values.deployment.securityContext | nindent 8 }}
+
+{{- end }}
       nodeSelector:
         nodes.storage: {{ .Values.deployment.nodeType }}
 

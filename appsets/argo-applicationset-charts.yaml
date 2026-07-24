@@ -8,64 +8,89 @@ spec:
     - list:
         elements:
 
-          - name: argo-events
-            path: argo-events
-            namespace: argo-events
-            valuesFile: values.yaml
-            createNamespace: "true"
+          # - name: argo-events
+          #   path: argo-events
+          #   namespace: argo-events
+          #   createNamespace: "true"
 
-          - name: argo-workflows
-            path: argo-workflows
-            namespace: argo-workflows
-            valuesFile: values.yaml
-            createNamespace: "true"
+          # - name: argo-workflows
+          #   path: argo-workflows
+          #   namespace: argo-workflows
+          #   createNamespace: "true"
 
-          - name: awx
-            path: awx
-            namespace: awx
-            valuesFile: values.yaml
-            createNamespace: "true"
+          # - name: awx
+          #   path: awx
+          #   namespace: awx
+          #   createNamespace: "true"
 
           - name: bazarr
             path: bazarr
             namespace: jmedia
-            valuesFile: values.yaml
             createNamespace: "false"
 
           - name: cert-manager
             path: cert-manager
             namespace: cert-manager
-            valuesFile: values.yaml
             createNamespace: "true"
 
           - name: flaresolverr
             path: flaresolverr
             namespace: jmedia
-            valuesFile: values.yaml
             createNamespace: "false"
 
           - name: gameoflife
             path: game-of-life
             namespace: gameoflife
-            valuesFile: values.yaml
             createNamespace: "true"
 
           - name: ingress-nginx
             path: ingress-nginx
             namespace: ingress-nginx
-            valuesFile: values.yaml
             createNamespace: "true"
 
           - name: jellyfin
             path: jellyfin
             namespace: jmedia
-            valuesFile: values.yaml
+            createNamespace: "false"
+
+          - name: landing
+            path: landing-k8s
+            namespace: jmedia
+            createNamespace: "false"
+
+          - name: lidarr
+            path: lidarr
+            namespace: jmedia
+            createNamespace: "false"
+
+          - name: jellyseerr
+            path: jellyseerr
+            namespace: jmedia
             createNamespace: "false"
 
           - name: metallb
             path: metallb
             namespace: metallb
-            valuesFile: values.yaml
+            createNamespace: "true"
+
+          - name: prowlarr
+            path: prowlarr
+            namespace: jmedia
+            createNamespace: "true"
+
+          - name: qbittorrent
+            path: qbittorrent
+            namespace: jmedia
+            createNamespace: "false"
+
+          - name: radarr
+            path: radarr
+            namespace: jmedia
+            createNamespace: "true"
+
+          - name: sonarr
+            path: sonarr
+            namespace: jmedia
             createNamespace: "true"
 
   template:
@@ -82,7 +107,7 @@ spec:
         path: "{{path}}"
         helm:
           valueFiles:
-            - "{{valuesFile}}"
+            - values.yaml
       syncPolicy:
         automated:
           prune: true
